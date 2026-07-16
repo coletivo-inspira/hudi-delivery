@@ -1,0 +1,5 @@
+# Legacy GitHub Pages still builds /docs with Jekyll.
+# Keep Next.js assets (under _next) in the published output.
+include:
+  - _next
+  - .nojekyll
