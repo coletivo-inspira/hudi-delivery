@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --coral: #E73B4C;
+  --coral-hover: #C72F3F;
+  --bege: #F4F5F7;
+  --ink: #000000;
+  --ink-70: rgba(0, 0, 0, 0.7);
+  --ink-55: rgba(0, 0, 0, 0.55);
+  --border-line: rgba(0, 0, 0, 0.08);
+
+  --background: #FFFFFF;
+  --foreground: var(--ink);
+}
+
+@theme inline {
+  --color-coral: var(--coral);
+  --color-coral-hover: var(--coral-hover);
+  --color-bege: var(--bege);
+  --color-ink: var(--ink);
+  --color-ink-70: var(--ink-70);
+  --color-ink-55: var(--ink-55);
+  --color-border-line: var(--border-line);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-dm-sans);
+  --font-serif: var(--font-fraunces);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Base utility classes for the project */
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility container-custom {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
