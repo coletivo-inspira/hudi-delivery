@@ -1,98 +1,54 @@
-# Hudi - Delivery System
+# Hudi Delivery
 
-Landing page oficial e arquitetura de front-end do **Hudi**: uma plataforma completa de cardápio digital, gestão de pedidos e automação de atendimento para restaurantes e deliveries.
+Landing page estática da Hudi Delivery, criada com Next.js 16, React 19 e Tailwind CSS 4. O projeto apresenta cardápio digital, atendimento com IA no WhatsApp e gestão de pedidos para restaurantes.
 
-O projeto é uma aplicação web de alta performance focada em conversão, construída com Next.js e preparada para escalar.
+## Rotas
 
-## Rotas públicas
+- `/` — landing page completa.
+- `/planos/` — comparação dedicada de planos.
 
-| Rota | Finalidade |
-| --- | --- |
-| `/` | Landing page principal, focada na conversão de novos restaurantes. |
-| `/planos/` | Tabela detalhada de preços e funcionalidades (Free vs Pro). |
-| `/funcionalidades/` | Exploração técnica do PDV, Cardápio Digital e Integrações. |
+## Stack
 
-## Estratégia de produto e design
+- Next.js 16 com App Router e exportação estática;
+- Tailwind CSS 4 com tokens de marca em `src/app/globals.css`;
+- Lucide React para ícones;
+- Motion para entradas suaves com suporte a `prefers-reduced-motion`;
+- Node Test Runner para verificações leves de estrutura, contraste e deploy.
 
-O site se posiciona como a solução definitiva para a gestão de restaurantes. A arquitetura visual utiliza cores que remetem ao apetite e urgência (como variações de Laranja/Vermelho ou um Amarelo vibrante), contrastando com um ambiente de gestão (dashboard) clean e escuro para não cansar a vista do operador.
+## Desenvolvimento
 
-- **Hudi Cardápio** — interface mobile-first para o cliente final fazer pedidos.
-- **Hudi Gestor** — painel Kanban para a cozinha e recepção aprovarem e despacharem pedidos.
-- **Hudi Moto** — roteirização e gestão da frota de entregadores.
-
-## Tecnologia
-
-- Next.js 16 com App Router;
-- React 19 e TypeScript estrito;
-- Estilização responsiva com Tailwind CSS (ou sua solução preferida);
-- Vitest + Testing Library para testes unitários de componentes críticos (ex: formulário de onboarding);
-- GitHub Actions para CI/CD continuo.
-
-## Começar localmente
-
-Pré-requisito: Node.js 24 e npm 11 (ou versões compatíveis).
+Requer Node.js 24 e npm 11 (ou versões compatíveis).
 
 ```bash
 npm ci
 npm run dev
 ```
-Abra `http://localhost:9009` no navegador. Para gerar e testar a build de produção localmente:
+
+O ambiente local abre em `http://localhost:9009`.
+
+## Qualidade e build
 
 ```bash
-npm run build
-npm run start
+npm run check
 ```
 
-## Scripts
+O comando executa ESLint, TypeScript, testes e a exportação estática. O resultado publicável fica em `out/`.
 
-| Comando | Uso |
-| --- | --- |
-| `npm run dev` | Inicia o ambiente de desenvolvimento com hot-reload. |
-| `npm run typecheck` | Executa a checagem estrita de TypeScript. |
-| `npm test` | Executa os testes unitários e de integração. |
-| `npm run build` | Gera a versão otimizada de produção. |
-| `npm run check` | Roda tipagem, testes e build para garantia de qualidade antes de commits. |
+## GitHub Pages
 
-## Arquitetura
+O workflow `.github/workflows/deploy-pages.yml` valida, exporta e publica o site automaticamente após um push na branch `main`. No GitHub, configure **Settings → Pages → Source** como **GitHub Actions**.
+
+O `basePath` é recebido automaticamente da action oficial do GitHub Pages, então a aplicação funciona sob o caminho `/hudi-delivery/` sem URLs de assets quebradas.
+
+## Estrutura
 
 ```text
-src/
-  app/
-    page.tsx                 # composição da landing page (Hero, Showcase, etc)
-    planos/page.tsx          # rota da página de preços
-    globals.css              # tokens de marca e estilos globais
-  components/
-    brand/                   # logotipos do sistema e variações
-    layout/                  # cabeçalho (SiteHeader) e rodapé (SiteFooter) compartilhados
-    sections/                # blocos de construção da página (Hero, ProductShowcase, Testimonials, Pricing)
-    ui/                      # botões, inputs, cards genéricos (Design System interno)
-  data/site-content.ts       # dados genéricos (preços, FAQ, depoimentos, contatos)
-  types/site.ts              # contratos e interfaces TypeScript
-tests/                       # validações de fluxo e renderização
-docs/                        # documentações auxiliares do time
+src/app/                 rotas, metadados e tokens globais
+src/components/ui/       Button, GlassCard, Accordion e Reveal
+src/components/layout/   cabeçalho e rodapé compartilhados
+src/components/sections/ seções de conversão da landing
+src/data/                 conteúdo editável de produtos, planos e FAQ
+tests/                    verificações leves sem dependências adicionais
 ```
 
-Todo o conteúdo em texto (planos, perguntas frequentes, depoimentos) está isolado em `src/data/site-content.ts` para facilitar atualizações sem a necessidade de alterar a marcação dos componentes estruturais.
-
-## Documentação de componentes
-
-Para manter a consistência visual e a reusabilidade, os blocos principais da Landing Page possuem documentação interna.
-
-| Componente | Responsabilidade |
-| --- | --- |
-| `SiteHeader` | Navegação sticky, logo e CTA "Criar Conta". |
-| `Hero` | Primeira dobra da página: proposta de valor, input de captura e mockup duplo (Celular + PDV). |
-| `ProductShowcase` | Seções em zigue-zague detalhando as features (Cardápio, WhatsApp, Gestão). |
-| `PricingTable` | Tabela comparativa interativa entre planos Gratuitos e Pagos. |
-| `TestimonialCarousel` | Prova social: slider ou grid com avaliações de donos de restaurante. |
-| `FinalCta` | Último esforço de conversão na base da página antes do rodapé. |
-
-## Publicação automática e CI/CD
-
-O fluxo de publicação executa testes, linting e typechecking em todas as PRs direcionadas para a branch `main`. A publicação em produção só ocorre após a aprovação de todos os steps de segurança.
-
-## Acessibilidade e responsividade
-
-* **Mobile First:** Como muitos donos de delivery administram o negócio pelo celular, toda a landing page é otimizada rigorosamente para telas pequenas.
-* Imagens de mockups possuem descrições de contexto `alt` para leitores de tela.
-* Formulários de conversão possuem contraste validado e foco visível via teclado.
+O site foi desenhado mobile-first, com foco visível, controles de toque de pelo menos 44px, HTML semântico e combinações principais de texto em conformidade com WCAG AA.

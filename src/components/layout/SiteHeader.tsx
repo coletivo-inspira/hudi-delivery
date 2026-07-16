@@ -1,61 +1,77 @@
+"use client";
+
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import { useEffect, useRef, useState } from "react";
+import { navigation } from "@/data/site-content";
+import { buttonClasses } from "@/components/ui/Button";
+
+function Logo() {
+  return (
+    <span className="flex items-center gap-2.5" aria-label="Hudi Delivery">
+      <span className="grid size-9 place-items-center rounded-lg bg-hudi-deep text-sm font-bold text-white shadow-sm">H</span>
+      <span className="text-lg font-bold tracking-[-0.04em] text-hudi-deep">hudi<span className="text-hudi-primary">.</span></span>
+    </span>
+  );
+}
 
 export function SiteHeader() {
+  const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
+
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] max-w-[1180px] z-50 bg-white/80 backdrop-blur-md border border-border-line rounded-full shadow-sm">
-      <div className="flex items-center justify-between px-6 py-3">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 bg-coral text-white rounded-lg flex items-center justify-center font-bold text-xl group-hover:bg-coral-hover transition-colors">
-            H
-          </div>
-          <span className="font-bold text-xl tracking-tight">hudi.</span>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-hudi-line bg-hudi-offwhite/88 backdrop-blur-xl">
+      <div className="container-site flex h-18 items-center justify-between">
+        <Link href="/" className="rounded-lg transition-opacity duration-200 hover:opacity-75" onClick={() => setOpen(false)}>
+          <Logo />
         </Link>
 
-        {/* Navigation - Desktop */}
-        <nav className="hidden md:flex items-center gap-8">
-          <Link
-            href="#funcionalidades"
-            className="text-sm font-medium text-ink-70 hover:text-ink transition-colors"
-          >
-            Funcionalidades
-          </Link>
-          <Link
-            href="#planos"
-            className="text-sm font-medium text-ink-70 hover:text-ink transition-colors"
-          >
-            Planos
-          </Link>
-          <Link
-            href="#clientes"
-            className="text-sm font-medium text-ink-70 hover:text-ink transition-colors"
-          >
-            Clientes
-          </Link>
-          <Link
-            href="#faq"
-            className="text-sm font-medium text-ink-70 hover:text-ink transition-colors"
-          >
-            Dúvidas
-          </Link>
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">
+          {navigation.map((item) => (
+            <Link key={item.href} href={item.href} className="rounded-sm text-sm font-medium text-hudi-slate transition-colors duration-200 hover:text-hudi-deep">
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
-        {/* CTA */}
-        <div className="flex items-center gap-4">
-          <Link
-            href="/login"
-            className="hidden md:block text-sm font-medium text-ink-70 hover:text-ink transition-colors"
-          >
-            Entrar
-          </Link>
-          <Link
-            href="/cadastro"
-            className="bg-coral hover:bg-coral-hover text-white text-sm font-medium px-5 py-2.5 rounded-full transition-all hover:-translate-y-0.5"
-          >
-            Criar conta grátis
-          </Link>
+        <div className="hidden items-center gap-2 lg:flex">
+          <Link href="#contato" className={buttonClasses("primary", "px-4 py-2.5")}>Começar agora</Link>
         </div>
+
+        <button
+          ref={menuButtonRef}
+          type="button"
+          className="grid size-11 place-items-center rounded-lg text-hudi-deep transition-colors duration-200 hover:bg-hudi-deep/6 lg:hidden"
+          aria-label={open ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={open}
+          aria-controls="menu-mobile"
+          onClick={() => setOpen((value) => !value)}
+        >
+          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </button>
+      </div>
+
+      <div id="menu-mobile" className={`${open ? "grid" : "hidden"} border-t border-hudi-line bg-hudi-offwhite px-4 py-5 shadow-soft lg:hidden`}>
+        <nav className="grid gap-1" aria-label="Navegação mobile">
+          {navigation.map((item) => (
+            <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="rounded-lg px-4 py-3 font-medium text-hudi-deep transition-colors duration-200 hover:bg-white">
+              {item.label}
+            </Link>
+          ))}
+          <Link href="#contato" onClick={() => setOpen(false)} className={buttonClasses("primary", "mt-3 w-full")}>Começar agora</Link>
+        </nav>
       </div>
     </header>
   );
