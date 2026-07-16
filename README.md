@@ -36,9 +36,9 @@ O comando executa ESLint, TypeScript, testes e a exportação estática. O resul
 
 ## GitHub Pages
 
-O workflow `.github/workflows/deploy-pages.yml` valida, exporta e publica o site automaticamente após um push na branch `main`.
+O workflow `.github/workflows/deploy-pages.yml` valida, exporta e publica o site automaticamente após um push na branch `main` (ignorando mudanças só em `docs/`).
 
-No GitHub, configure **Settings → Pages → Source** como **GitHub Actions**. Não use **Deploy from a branch** com a pasta `/docs` (nem com `/` na raiz): esse modo aciona o builder Jekyll legado (`pages-build-deployment`), que falha neste repositório porque o site é um export estático do Next.js em `out/`, não um site Jekyll.
+Preferência: **Settings → Pages → Source → GitHub Actions**. Enquanto a origem continuar em **Deploy from a branch → `/docs`**, o builder Jekyll legado (`actions/jekyll-build-pages`) ainda roda. Por isso o workflow também sincroniza o export estático em `docs/` (com `.nojekyll` e `_config.yml` que inclui `_next`), via `npm run prepare:docs-pages`.
 
 O `basePath` é recebido automaticamente da action oficial do GitHub Pages, então a aplicação funciona sob o caminho `/hudi-delivery/` sem URLs de assets quebradas. O domínio customizado fica no `CNAME` na raiz do repositório.
 

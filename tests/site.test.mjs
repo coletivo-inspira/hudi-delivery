@@ -40,9 +40,14 @@ test("the Hudi Delivery lockup is used by the header", async () => {
 test("GitHub Pages remains a static export", async () => {
   const config = await readFile(new URL("next.config.ts", root), "utf8");
   const workflow = await readFile(new URL(".github/workflows/deploy-pages.yml", root), "utf8");
+  const prepareDocs = await readFile(new URL("scripts/prepare-docs-pages.mjs", root), "utf8");
   assert.match(config, /output:\s*["']export["']/);
   assert.match(config, /basePath/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
+  assert.match(workflow, /prepare:docs-pages/);
+  assert.match(workflow, /paths-ignore:[\s\S]*docs\/\*\*/);
+  assert.match(prepareDocs, /_next/);
+  assert.match(prepareDocs, /\.nojekyll/);
 });
 
 test("the lockfile includes Linux WASM runtime dependencies required by npm ci", async () => {

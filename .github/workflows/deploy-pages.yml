@@ -3,10 +3,13 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+    # Avoid a loop when this workflow syncs the built site into docs/.
+    paths-ignore:
+      - "docs/**"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -34,10 +37,20 @@ jobs:
         run: npm run check
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+      - name: Prepare docs/ for legacy Pages source
+        run: npm run prepare:docs-pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./out
+      - name: Publish docs/ for branch Pages source
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs
+          target-folder: docs
+          branch: main
+          clean: true
+          commit-message: "chore: sync docs/ for GitHub Pages"
 
   deploy:
     environment:
