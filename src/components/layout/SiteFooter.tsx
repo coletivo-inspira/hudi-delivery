@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { HudiMark } from "@/components/ui/HudiMark";
+import { HudiLabsLogo } from "@/components/ui/HudiMark";
 
 const groups = [
   { title: "Ecossistema", links: [["Cardápio", "/#solucoes"], ["Conversa", "/#solucoes"], ["Painel", "/#solucoes"]] },
@@ -13,7 +13,7 @@ export function SiteFooter() {
     <footer className="bg-hudi-deep text-white">
       <div className="container-site grid gap-12 py-16 lg:grid-cols-[1.25fr_2fr]">
         <div>
-          <div className="mb-5"><HudiMark className="h-11" /></div>
+          <div className="mb-5"><HudiLabsLogo className="h-11" /></div>
           <p className="max-w-sm leading-7 text-blue-100">Tecnologia prática para restaurantes venderem mais e operarem melhor, sem transformar o simples em complicado.</p>
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">

@@ -4,7 +4,7 @@ import { ArrowRight, CheckCircle2, Rocket, SlidersHorizontal } from "lucide-reac
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
-import { HudiMark } from "@/components/ui/HudiMark";
+import { HudiLabsLogo } from "@/components/ui/HudiMark";
 
 const steps = [
   { icon: SlidersHorizontal, number: "01", title: "Configure", text: "Cadastre seu negócio, horários e cardápio com um fluxo guiado." },
@@ -27,7 +27,7 @@ export function HowItWorks() {
       <div className="container-site">
         <Reveal className="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
           <div>
-            <HudiMark className="h-9" />
+            <HudiLabsLogo className="h-9" />
             <h2 className="mt-5 text-4xl font-bold leading-tight tracking-[-0.04em] text-white sm:text-6xl">Começar não precisa virar um projeto.</h2>
           </div>
           <p className="max-w-xl text-lg leading-8 text-blue-100 lg:justify-self-end">Em três movimentos, sua operação ganha um canal próprio e uma base preparada para crescer.</p>

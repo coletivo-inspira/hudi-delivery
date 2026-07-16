@@ -5,7 +5,7 @@ import type { FormEvent } from "react";
 import { useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { buttonClasses } from "@/components/ui/Button";
-import { HudiMark } from "@/components/ui/HudiMark";
+import { HudiLabsLogo } from "@/components/ui/HudiMark";
 
 const areas = ["Restaurante", "Lanchonete", "Pizzaria", "Hamburgueria", "Cafeteria", "Outro"];
 const interests = ["Cardápio digital", "Conversa no WhatsApp", "Gestão da operação"];
@@ -39,7 +39,7 @@ export function FinalCta() {
           <div className="absolute -bottom-44 -left-20 -z-10 size-96 rounded-full bg-hudi-light/15 blur-3xl" />
           <div className="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
             <div className="max-w-xl">
-              <HudiMark className="h-12" />
+              <HudiLabsLogo className="h-12" />
               <p className="mt-8 text-xs font-bold uppercase tracking-[0.14em] text-blue-200">Fale com a Hudi</p>
               <h2 className="mt-4 text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.02] tracking-[-0.05em] text-white">Seu delivery pode ser mais simples a partir de agora.</h2>
               <p className="mt-6 text-lg leading-8 text-blue-100">Leva menos de um minuto. Conte um pouco da sua operação e nossa equipe continua a conversa pelo WhatsApp.</p>
