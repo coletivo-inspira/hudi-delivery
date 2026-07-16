@@ -12,8 +12,7 @@ export const features: Feature[] = [
   {
     eyebrow: "Hudi Cardápio",
     title: "Seu cardápio, direto e irresistível.",
-    description:
-      "Uma experiência rápida para o cliente escolher, personalizar e pedir — sem instalar aplicativo e sem disputar atenção com marketplaces.",
+    description: "Uma experiência rápida para o cliente escolher, personalizar e pedir — sem instalar aplicativo e sem disputar atenção com marketplaces.",
     highlights: ["Pedidos sem comissão", "QR Code e link próprio", "Atualização em tempo real"],
     icon: QrCode,
     tone: "light",
@@ -21,18 +20,16 @@ export const features: Feature[] = [
   {
     eyebrow: "Hudi Conversa",
     title: "Atendimento que responde e também vende.",
-    description:
-      "A IA organiza o atendimento no WhatsApp, tira dúvidas e conduz o pedido com a linguagem do seu restaurante.",
+    description: "A IA organiza o atendimento no WhatsApp, tira dúvidas e conduz o pedido com a linguagem do seu restaurante.",
     highlights: ["Disponível 24 horas", "Contexto de cada cliente", "Transferência para sua equipe"],
     icon: Bot,
     tone: "deep",
   },
   {
-    eyebrow: "Hudi Gestor",
-    title: "A operação inteira em uma única visão.",
-    description:
-      "Pedidos, cozinha, clientes e indicadores trabalham juntos para sua equipe ganhar ritmo sem perder o controle.",
-    highlights: ["Painel de pedidos ao vivo", "CRM de clientes", "Indicadores acionáveis"],
+    eyebrow: "Hudi Painel",
+    title: "Decisões claras, operação sob controle.",
+    description: "Pedidos, cozinha, vendas e clientes organizados em painéis visuais para você entender o agora e decidir o próximo passo.",
+    highlights: ["Pedidos e cozinha em tempo real", "Vendas e ticket médio", "Clientes e campanhas em um só lugar"],
     icon: LayoutDashboard,
     tone: "light",
   },

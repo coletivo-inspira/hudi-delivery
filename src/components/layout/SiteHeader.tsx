@@ -1,23 +1,18 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { navigation } from "@/data/site-content";
 import { buttonClasses } from "@/components/ui/Button";
 
-function Logo() {
-  return (
-    <span className="flex items-center gap-2.5" aria-label="Hudi Delivery">
-      <span className="grid size-9 place-items-center rounded-lg bg-hudi-deep text-sm font-bold text-white shadow-sm">H</span>
-      <span className="text-lg font-bold tracking-[-0.04em] text-hudi-deep">hudi<span className="text-hudi-primary">.</span></span>
-    </span>
-  );
-}
-
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   useEffect(() => {
     if (!open) return;
@@ -33,9 +28,17 @@ export function SiteHeader() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-hudi-line bg-hudi-offwhite/88 backdrop-blur-xl">
-      <div className="container-site flex h-18 items-center justify-between">
-        <Link href="/" className="rounded-lg transition-opacity duration-200 hover:opacity-75" onClick={() => setOpen(false)}>
-          <Logo />
+      <div className="container-site flex h-20 items-center justify-between">
+        <Link href="/" className="rounded-lg" aria-label="Hudi Delivery — página inicial" onClick={() => setOpen(false)}>
+          <motion.span
+            className="block origin-left"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={prefersReducedMotion ? undefined : { y: -1, scale: 1.015 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.32, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Image src={`${basePath}/hudi-delivery-lockup.svg`} alt="Hudi Delivery" width={460} height={100} priority className="h-10 w-auto sm:h-11" />
+          </motion.span>
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">
@@ -47,7 +50,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <Link href="#contato" className={buttonClasses("primary", "px-4 py-2.5")}>Começar agora</Link>
+          <Link href="/#contato" className={buttonClasses("primary", "px-4 py-2.5")}>Começar agora</Link>
         </div>
 
         <button
@@ -70,7 +73,7 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <Link href="#contato" onClick={() => setOpen(false)} className={buttonClasses("primary", "mt-3 w-full")}>Começar agora</Link>
+          <Link href="/#contato" onClick={() => setOpen(false)} className={buttonClasses("primary", "mt-3 w-full")}>Começar agora</Link>
         </nav>
       </div>
     </header>

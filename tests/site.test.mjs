@@ -27,10 +27,31 @@ test("the homepage composes every required conversion section", async () => {
   }
 });
 
+test("the Hudi Delivery lockup is used by the header", async () => {
+  const [header, logo] = await Promise.all([
+    readFile(new URL("src/components/layout/SiteHeader.tsx", root), "utf8"),
+    readFile(new URL("public/hudi-delivery-lockup.svg", root), "utf8"),
+  ]);
+  assert.match(header, /hudi-delivery-lockup\.svg/);
+  assert.match(logo, />HUDI<\/text>/);
+  assert.match(logo, />Delivery<\/text>/);
+});
+
 test("GitHub Pages remains a static export", async () => {
   const config = await readFile(new URL("next.config.ts", root), "utf8");
   const workflow = await readFile(new URL(".github/workflows/deploy-pages.yml", root), "utf8");
   assert.match(config, /output:\s*["']export["']/);
   assert.match(config, /basePath/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
+});
+
+test("the lockfile includes Linux WASM runtime dependencies required by npm ci", async () => {
+  const [manifest, lockfile] = await Promise.all([
+    readFile(new URL("package.json", root), "utf8"),
+    readFile(new URL("package-lock.json", root), "utf8"),
+  ]);
+  assert.match(manifest, /"@emnapi\/core": "1\.11\.2"/);
+  assert.match(manifest, /"@emnapi\/runtime": "1\.11\.2"/);
+  assert.match(lockfile, /"node_modules\/@emnapi\/core"/);
+  assert.match(lockfile, /"node_modules\/@emnapi\/runtime"/);
 });

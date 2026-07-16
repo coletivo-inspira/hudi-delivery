@@ -1,8 +1,36 @@
 import { Check, MessageSquareText, TrendingUp, Users } from "lucide-react";
 import { features } from "@/data/site-content";
 import { Reveal } from "@/components/ui/Reveal";
+import { HudiMark } from "@/components/ui/HudiMark";
 
 function FeatureVisual({ index, dark }: { index: number; dark: boolean }) {
+  if (index === 2) {
+    return (
+      <div className="relative min-h-80 overflow-hidden rounded-xl border border-hudi-line bg-white p-5 sm:p-7">
+        <div className="absolute -right-20 -top-24 size-72 rounded-full bg-hudi-light/20 blur-3xl" />
+        <div className="relative mx-auto max-w-lg rounded-xl border border-hudi-line bg-hudi-offwhite p-4 shadow-soft sm:p-5">
+          <div className="flex items-center justify-between">
+            <div><p className="text-xs font-bold uppercase tracking-[0.12em] text-hudi-slate">Hudi Painel</p><p className="mt-1 font-bold text-hudi-deep">Visão geral de hoje</p></div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-800"><span className="size-1.5 rounded-full bg-emerald-600" /> Ao vivo</span>
+          </div>
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {[['128', 'pedidos'], ['R$ 8.420', 'em vendas'], ['R$ 65,78', 'ticket médio']].map(([value, label], itemIndex) => (
+              <div key={label} className={`rounded-lg border border-hudi-line bg-white p-3 ${itemIndex === 2 ? 'col-span-2 sm:col-span-1' : ''}`}>
+                <p className="text-xl font-bold tracking-[-0.03em] text-hudi-deep">{value}</p><p className="mt-1 text-xs text-hudi-slate">{label}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 rounded-lg border border-hudi-line bg-white p-4">
+            <div className="flex items-center justify-between text-xs"><span className="font-semibold text-hudi-deep">Pedidos por horário</span><span className="text-emerald-700">+18% hoje</span></div>
+            <div className="mt-5 flex h-20 items-end gap-2" aria-label="Gráfico de pedidos por horário">
+              {[28, 46, 38, 70, 58, 88, 74, 96].map((height, barIndex) => <span key={barIndex} className="flex-1 rounded-t bg-hudi-primary/75" style={{ height: `${height}%` }} />)}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const metrics = [
     { icon: TrendingUp, value: "R$ 8.420", label: "vendas diretas" },
     { icon: MessageSquareText, value: "86%", label: "resolvido pela IA" },
@@ -34,12 +62,11 @@ export function ProductShowcase() {
         </Reveal>
         <div className="grid gap-20 lg:gap-28">
           {features.map((feature, index) => {
-            const Icon = feature.icon;
             return (
               <Reveal key={feature.title}>
                 <article className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
                   <div className={index % 2 ? "lg:order-2" : ""}>
-                    <span className="eyebrow"><Icon className="size-4" aria-hidden="true" /> {feature.eyebrow}</span>
+                    <span className="eyebrow"><HudiMark className="h-6" /> {feature.eyebrow}</span>
                     <h3 className="mt-5 text-3xl font-bold leading-tight tracking-[-0.035em] sm:text-5xl">{feature.title}</h3>
                     <p className="mt-5 max-w-xl text-lg leading-8">{feature.description}</p>
                     <ul className="mt-7 grid gap-3">
